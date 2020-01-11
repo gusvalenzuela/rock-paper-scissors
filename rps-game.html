@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Scissors, Paper, Rock!</title>
+</head>
+<body>
+    <script>
+        var wins = 0;
+        var loss = 0;
+        var draw = 0;
+        var gamesToPlay = 0;
+        var gamesPlayed = 0;
+        var gamesRemaining = 0;
+        var userChoice, userItem, compChoice, compItem, yesLetsPlay;
+        var logo = "\\^_^/";
+        var options = ["r", "p", "s"];
+
+        // function to convert the user and computer choices (r, p, or s) into their full item names
+        function convertToItemName(arg1, arg2) {
+            if(arg1 === "r"){
+                userItem = "ROCK"
+            } else if (arg1 === "p") {
+                userItem = "PAPER"
+            } else {
+                userItem = "SCISSORS"
+            }
+
+            if(arg2 === "r"){
+                compItem = "ROCK"
+            } else if (arg2 === "p") {
+                compItem = "PAPER"
+            } else {
+                compItem = "SCISSORS"
+            }
+        }
+
+        // asks user how many games they'd like to play 
+        gamesToPlay = prompt(`Great!\nLet's play "Rock, Paper, Scissors"\n\nHow many times would you like to play? (enter a number)`)
+        parseInt(gamesToPlay) // parses the user input AFTER asking in order to get a "" in case of nothing entered, plus flexibility
+
+        // chooses the default(7) if nothing is entered
+        if(gamesToPlay === ""){
+            gamesToPlay = 7
+        }
+        
+        gamesRemaining = gamesToPlay
+        
+        // begin game
+        for(i=0;i<gamesToPlay;i++){
+            // will ask user to select between "ROCK," "PAPER," "SCISSORS" by entering r, p, or s
+            userChoice = prompt(`Make a selection by entering:\n"r" for ROCK,\n"p" for PAPER, or\n"s" for SCISSORS\n(` + gamesRemaining + ` games remaining)\n`)
+            userChoice = userChoice.toLowerCase()
+            gamesRemaining-- // lowers the "games remaining" counter each time it iterates
+
+            // checks to see if user actually typed r, p, or s before beginning to compare with the computers choice
+            if((userChoice === "r") || (userChoice === "p") || (userChoice === "s")) {
+                rando = Math.floor(Math.random()*2) // generate random number 0-2 
+                compChoice = options[rando] // computer makes a choice by using the randomly generated number to choose from options array index (0 = rock, 1 = paper, 2 = scissors)
+            
+                if((userChoice === "r" && compChoice === "s") || (userChoice === "p" && compChoice === "r") || (userChoice === "s" && compChoice === "p")) {
+                    gamesPlayed++
+                    wins++
+                    convertToItemName(userChoice,compChoice)
+                    alert(`You chose: ` + userItem + `\nComputer chose: ` + compItem + `\n\nYou Win!\n` + wins + ` Wins | ` + loss + ` Losses | ` + draw + ` Draws\n\n` + gamesRemaining + ` games remaining.\n` + logo)                    
+                } else if (userChoice === compChoice) {
+                    gamesPlayed++
+                    draw++
+                    convertToItemName(userChoice)
+                    alert(`You chose: ` + userItem + `\nComputer also chose: ` + userItem + `\n\nIt's a draw!\n` + wins + ` Wins | ` + loss + ` Losses | ` + draw + ` Draws\n\n` + gamesRemaining + ` games remaining.\n` + logo)
+                } else {
+                    gamesPlayed++
+                    loss++
+                    convertToItemName(userChoice,compChoice)
+                    alert(`You chose: ` + userItem + `\nComputer chose: ` + compItem + `\n\nComputer Wins!\n` + wins + ` Wins | ` + loss + ` Losses | ` + draw + ` Draws\n\n` + gamesRemaining + ` games remaining.\n` + logo)
+                }
+
+            } else {
+                gamesRemaining++
+                gamesToPlay++
+                alert(`Uh-Oh!\nYou've entered: "` + userChoice + `"\nYou must enter either "r", "p", or "s" to play.\n\nTry again! ` + logo)
+
+            }            
+        }
+
+        prompt(`FINAL SCORE: ` + wins + ` Wins | ` + loss + ` Losses | ` + draw + ` Draws\n\nThank you for playing! ` + logo)
+        
+    </script>
+</body>
+</html>
