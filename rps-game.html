@@ -55,7 +55,7 @@
             userChoice = userChoice.toLowerCase()
             gamesRemaining-- // lowers the "games remaining" counter each time it iterates
 
-            // checks to see if user actually typed r, p, or s before beginning to compare with the computers choice
+            // checks to see if user actually typed r, p, or s before beginning to compare with the computers choice, else gives error and instructs to type only r, p, or s.
             if((userChoice === "r") || (userChoice === "p") || (userChoice === "s")) {
                 rando = Math.floor(Math.random()*2) // generate random number 0-2 
                 compChoice = options[rando] // computer makes a choice by using the randomly generated number to choose from options array index (0 = rock, 1 = paper, 2 = scissors)
