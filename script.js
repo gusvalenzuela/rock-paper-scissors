@@ -9,8 +9,8 @@ var logo = "\\^_^/";
 var options = ["r", "p", "s"];
 
 function addToScorecard() {
-    document.getElementById("scorecard").innerHTML = `\nFINAL SCORE:<br>` + wins + ` Win(s) | ` + loss + ` Loss(es) | ` + draw + ` Draw(s)`
-    document.getElementById("scorecard-caption").innerHTML = `Thank you for playing! ` + logo + `\n`
+    // document.getElementById("scorecard").innerHTML = `You Win!`
+    // document.getElementById("scorecard-caption").innerHTML = `Thank you for playing! ` + logo + `\n`
 }
 
 // function to convert the user and computer choices (r, p, or s) into their full item names
@@ -32,9 +32,49 @@ function convertToItemName(arg1, arg2) {
     }
 }
 
-document.getElementById("myBtnR").addEventListener("click", playGame("r"));
-document.getElementById("myBtnP").addEventListener("click", playGame("p"));
-document.getElementById("myBtnS").addEventListener("click", playGame("s"));
+function playGame(arg){
+
+    for(i=0;i<1;i++){
+        if((arg === "r") || (arg === "p") || (arg === "s")) {
+            rando = Math.floor(Math.random()*2) // generate random number 0-2 
+            compChoice = options[rando] // computer makes a choice by using the randomly generated number to choose from options array index (0 = rock, 1 = paper, 2 = scissors)
+    
+            if((arg === "r" && compChoice === "s") || (arg === "p" && compChoice === "r") || (arg === "s" && compChoice === "p")) {
+                gamesPlayed++
+                wins++
+                convertToItemName(arg,compChoice)
+                document.getElementById("scorecard-header").innerHTML = `You chose: ` + userItem + ` and Computer chose: ` + compItem + `<br>`
+                document.getElementById("scorecard").innerHTML = `You Win!`
+                document.getElementById("scorecard-caption").innerHTML = gamesPlayed + ` games played`
+            } else if (arg === compChoice) {
+                gamesPlayed++
+                draw++
+                convertToItemName(arg, compChoice)
+                document.getElementById("scorecard-header").innerHTML = `You chose: ` + userItem + ` and Computer chose: ` + compItem
+                document.getElementById("scorecard").innerHTML = `It's a Draw!`
+                document.getElementById("scorecard-caption").innerHTML = gamesPlayed + ` games played`
+            } else {
+                gamesPlayed++
+                loss++
+                convertToItemName(arg,compChoice)
+                document.getElementById("scorecard-header").innerHTML = `You chose: ` + userItem + ` and Computer chose: ` + compItem
+                document.getElementById("scorecard").innerHTML = `You Lose.`
+                document.getElementById("scorecard-caption").innerHTML = gamesPlayed + ` games played`
+            }
+    
+        } else {
+            gamesRemaining++
+            gamesToPlay++
+            alert(`\nUh-Oh!\nYou've entered: "` + userChoice + `"\nYou must enter: "r", "p", or "s" to play\n\nTry again! ` + logo + `\n`)
+    
+        }            
+
+        // addToScorecard()
+
+    }
+    // checks to see if user actually typed r, p, or s before beginning to compare with the computers choice, else gives error and instructs to type only r, p, or s.
+}
+
 
 // asks user how many games they'd like to play 
 // gamesToPlay, userInput = prompt(`\nGreat!\nLet's play "Rock, Paper, Scissors"\n\nHow many times would you like to play? (enter a number)`)
@@ -47,41 +87,6 @@ document.getElementById("myBtnS").addEventListener("click", playGame("s"));
 
 // gamesRemaining = gamesToPlay
 
-function playGame(arg){
-
-    for(i=0;i=0;i++){
-        if((arg === "r") || (arg === "p") || (arg === "s")) {
-            rando = Math.floor(Math.random()*2) // generate random number 0-2 
-            compChoice = options[rando] // computer makes a choice by using the randomly generated number to choose from options array index (0 = rock, 1 = paper, 2 = scissors)
-    
-            if((arg === "r" && compChoice === "s") || (arg === "p" && compChoice === "r") || (arg === "s" && compChoice === "p")) {
-                gamesPlayed++
-                wins++
-                convertToItemName(arg,compChoice)
-                document.getElementById("liveBox").innerHTML = `\nYou chose: ` + userItem + `\nComputer chose: ` + compItem + `\n\nYou Win!\n` + wins + ` Win(s) | ` + loss + ` Loss(es) | ` + draw + ` Draw(s)\n\n` + gamesPlayed + ` games played.\n`
-            } else if (arg === compChoice) {
-                gamesPlayed++
-                draw++
-                convertToItemName(arg)
-                document.getElementById("liveBox").innerHTML = `\nYou chose: ` + userItem + `\nComputer chose: ` + compItem + `\n\nYou Win!\n` + wins + ` Win(s) | ` + loss + ` Loss(es) | ` + draw + ` Draw(s)\n\n` + gamesPlayed + ` games played.\n`
-            } else {
-                gamesPlayed++
-                loss++
-                convertToItemName(arg,compChoice)
-                document.getElementById("liveBox").innerHTML = `\nYou chose: ` + userItem + `\nComputer chose: ` + compItem + `\n\nYou Win!\n` + wins + ` Win(s) | ` + loss + ` Loss(es) | ` + draw + ` Draw(s)\n\n` + gamesPlayed + ` games played.\n`
-            }
-    
-        } else {
-            gamesRemaining++
-            gamesToPlay++
-            alert(`\nUh-Oh!\nYou've entered: "` + userChoice + `"\nYou must enter: "r", "p", or "s" to play\n\nTry again! ` + logo + `\n`)
-    
-        }            
-        addToScorecard()
-
-    }
-    // checks to see if user actually typed r, p, or s before beginning to compare with the computers choice, else gives error and instructs to type only r, p, or s.
-}
 
 // function runGame(){
 //     // will ask user to select between "ROCK," "PAPER," "SCISSORS" by entering r, p, or s

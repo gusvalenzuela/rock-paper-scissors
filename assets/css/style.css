@@ -1,6 +1,50 @@
-#scorecard {
+html, body{
+    min-height: 100%;
+}
+
+body{
+    background: darkolivegreen;
+}
+
+img {
+    text-decoration: none;
+}
+
+.card-title {
+    color: white;
+    background-color: black;
+    opacity: .69;
+}
+
+#scorecard{
     text-align: center;
 }
+
+.img-card-body {
+    background: black;
+    opacity: .5;
+}
+.img-wrap{
+    /* width: 400px; */
+    max-height: 432px;
+    bottom: 0;
+}
+
+.img-card-caption {
+    color: white;
+    /* font-size: large; */
+    position: relative;
+    bottom: 0;
+    margin-top: -42%;
+}.img-card-caption:hover {
+    color: white;
+}
+
+.img-hvr:hover{
+    opacity: .80;
+}
+
+
 
 /* #scorecard-option {
     text-align: center;
